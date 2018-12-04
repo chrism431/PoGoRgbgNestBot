@@ -240,13 +240,16 @@ def init(bot, update):
 	
 # Change Pokemon's nesting and shiny state
 def pokedex(bot, update):
-	# Ask for Pokemon's name
+	"""/pokedex Handler
+	Ask for Pokemon's name"""
 	update.message.reply_text(
 		'Welches Pokemon soll verändert werden?',
 		reply_markup=None)
 	return POKEMON
 	
 def pokemon(bot,update):
+	"""/pokemon Handler
+	Edit Pokemon's state in DB"""
 	query = update.callback_query
 	pokemon = update.message.text
 	dbglog(pokemon)
@@ -279,6 +282,7 @@ def pokemon(bot,update):
 		pokedex(bot,update)
 	
 def button(bot, update):
+	"""Global InlineButton Handler"""
 	query = update.callback_query
 	option = query.data	
 	msg_id = query.message.message_id
@@ -913,6 +917,7 @@ def error(bot, update, error):
 	logger.warning('Update "%s" caused error "%s"', update, error)
 
 def cancel(bot, update):
+	"""/cancel Command Handler"""
 	user = update.message.from_user
 	logger.info("User %s canceled the conversation.", user.first_name)
 	update.message.reply_text('Bye! I hope we can talk again some day.',
@@ -921,6 +926,7 @@ def cancel(bot, update):
 	return ConversationHandler.END
 
 def main():
+	"""main"""
 	# Create the EventHandler and pass it your bot's token.
 	updater = Updater(config['TELEGRAM']['bot_api_key'], request_kwargs={'read_timeout': 10, 'connect_timeout': 10})
 
